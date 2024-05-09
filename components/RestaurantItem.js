@@ -3,23 +3,58 @@ import React from "react";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function RestaurantItem() {
+export const localRestaurants = [
+  {
+    name: "Beachside Bar",
+    image_url:
+      "https://static.onecms.io/wp-content/uploads/sites/9/2020/04/24/ppp-why-wont-anyone-rescue-restaurants-FT-BLOG0420.jpg",
+    categories: ["Cafe", "Bar"],
+    price: "$$",
+    reviews: 1244,
+    rating: 4.5,
+  },
+  {
+    name: "Benihana",
+    image_url:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
+    categories: ["Cafe", "Bar"],
+    price: "$$",
+    reviews: 1244,
+    rating: 3.7,
+  },
+  {
+    name: "India's Grill",
+    image_url:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
+    categories: ["Indian", "Bar"],
+    price: "$$",
+    reviews: 700,
+    rating: 4.9,
+  },
+];
+
+export default function RestaurantItem(props) {
   return (
-    <View>
-      
-      {/* Resturant image*/}
-      <RestaurentImage />
-      {/* Resturant Info*/}
-      <RestaurentInfo />
-    </View>
+    <TouchableOpacity activeOpacity={1} style={{ marginBottom: 30 }}>
+      {props.restaurantData.map((restaurant, index) => (
+
+     
+      <View key = {index} style={{ marginTop: 30, padding: 15, backgroundColor: "white" }}>
+        {/* Resturant image*/}
+        <RestaurentImage image={restaurant.image_url}/>
+        {/* Resturant Info*/}
+        <RestaurentInfo name={restaurant.name} rating={restaurant.rating}/>
+      </View>
+      ))}
+    </TouchableOpacity>
   );
 }
 
-const RestaurentImage = () => (
+const RestaurentImage = (props) => (
   <>
     <Image
       source={{
-        uri: "https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg",
+        uri: props.image,
       }}
       style={{ width: "100%", height: 180 }}
     />
@@ -29,7 +64,7 @@ const RestaurentImage = () => (
   </>
 );
 
-const RestaurentInfo = () => (
+const RestaurentInfo = (props) => (
   <View
     style={{
       flexDirection: "row",
@@ -40,7 +75,7 @@ const RestaurentInfo = () => (
   >
     <View>
       <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-        Farmehouse kitchen thai cuisine
+        {props.name}
       </Text>
       <Text style={{ fontSize: 13, color: "gray" }}>40-45 mins.</Text>
     </View>
@@ -54,7 +89,7 @@ const RestaurentInfo = () => (
         borderRadius: 15,
       }}
     >
-      <Text>4.5</Text>
+      <Text>{props.rating}</Text>
     </View>
   </View>
 );
